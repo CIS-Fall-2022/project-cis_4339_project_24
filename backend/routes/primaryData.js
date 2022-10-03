@@ -92,4 +92,18 @@ router.put("/:id", (req, res, next) => {
     );
 });
 
+//DELETE primary data document based on id param
+router.delete("/:id", (req, res, next) => { 
+    primarydata.deleteOne( 
+        { _id: req.params.id },
+        (error, data) => {
+            if (error) {
+                return next(error);
+            } else {
+                res.json(data);
+            }
+        }
+    );
+});
+
 module.exports = router;
