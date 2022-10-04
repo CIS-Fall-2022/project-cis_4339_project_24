@@ -92,7 +92,7 @@ router.put("/:id", (req, res, next) => {
     );
 });
 
-//DELETE primary data document based on id param
+//DELETE primary data document based on id param Jacob Hui
 router.delete("/:id", (req, res, next) => { 
     primarydata.deleteOne( 
         { _id: req.params.id },
@@ -111,6 +111,6 @@ router.delete("/:id", (req, res, next) => {
     );
 });
 
-// TODO: delete events for client 
+// TODO: delete events for client Jacob Hui
 
 module.exports = router;

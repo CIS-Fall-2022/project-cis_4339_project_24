@@ -124,7 +124,7 @@ router.put("/addAttendee/:id", (req, res, next) => {
     
 });
 
-//DELETE event data document based on id param 
+//DELETE event data document based on id param Jacob Hui
 router.delete("/:id", (req, res, next) => { 
     eventdata.deleteOne( 
         { _id: req.params.id },
@@ -139,6 +139,6 @@ router.delete("/:id", (req, res, next) => {
 });
 
 
-// TODO: how many clients signed up for each event for the last 2 months
+// TODO: how many clients signed up for each event for the last 2 months Jacob Hui
 
 module.exports = router;
