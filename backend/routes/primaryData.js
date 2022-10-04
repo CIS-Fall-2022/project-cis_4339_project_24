@@ -100,6 +100,7 @@ router.delete("/:id", (req, res, next) => {
             if (error) {
                 return next(error);
             } else {
+                // TODO: Need to remove client id from events
                 res.json(data);
             }
         }
