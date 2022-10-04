@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan"); //better debugging
+let bodyParser = require('body-parser');
 const cors = require("cors");
 //allow using a .env file
 require("dotenv").config();   
@@ -12,6 +13,10 @@ const app = express();
 app.use(cors({
   origin: '*'
 }));
+
+// to send data by bdoy
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //sets up mongoose for the mongoDB connection
 mongoose
