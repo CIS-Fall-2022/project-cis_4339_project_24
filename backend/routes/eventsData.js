@@ -124,7 +124,7 @@ router.put("/addAttendee/:id", (req, res, next) => {
     
 });
 
-//DELETE event data document based on id param
+//DELETE event data document based on id param 
 router.delete("/:id", (req, res, next) => { 
     eventdata.deleteOne( 
         { _id: req.params.id },
