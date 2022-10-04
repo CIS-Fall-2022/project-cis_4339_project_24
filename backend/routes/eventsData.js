@@ -138,4 +138,7 @@ router.delete("/:id", (req, res, next) => {
     );
 });
 
+
+// TODO: how many clients signed up for each event for the last 2 months
+
 module.exports = router;

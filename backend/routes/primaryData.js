@@ -111,4 +111,6 @@ router.delete("/:id", (req, res, next) => {
     );
 });
 
+// TODO: delete events for client 
+
 module.exports = router;
