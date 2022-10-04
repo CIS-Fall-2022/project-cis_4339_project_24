@@ -100,9 +100,11 @@ router.delete("/:id", (req, res, next) => {
             if (error) {
                 return next(error);
             } else {
-                // TODO: Need to remove client id from events
-                eventdata.updateMany({}, {$unset: { attendees: req.params.id}}).exec()
+                // Need to remove client id from events
+                eventdata.updateMany({}, {$pull: {attendees: req.params.id}}).exec()
                 // learned $unset from: https://stackoverflow.com/questions/31384269/how-to-remove-property-of-nested-object-from-mongodb-document
+                // reread instructions changing to pull
+                // unset removes whole array (oops): https://stackoverflow.com/questions/7115978/remove-vs-pull-vs-unset-in-mongodb
                 res.json(data);
             }
         }
