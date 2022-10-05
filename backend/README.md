@@ -877,6 +877,7 @@ Possible errors:
 ### 3.7. Add an attendee to event
 
 API to update the event information and add a new attendee to the event in the mongodb collection. 
+The API will make sure there is no duplicate attendee in data
 
 ```
 PUT http://localhost:3000/eventData/addAttendee/:id
@@ -905,36 +906,38 @@ Example response:
 ```
 HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
-
-[
-    {
-        "address": {
-            "line1": "ghadbn",
-            "line2": "",
-            "city": "",
-            "county": "",
-            "zip": ""
-        },
-        "_id": "efcb60d0-4255-11ed-9e6a-cdaa95919513",
-        "organization": "631d4b84f6eb186df032a11a",
-        "eventName": "test",
-        "services": [
-            "Family Support",
-            "Adult Education"
-        ],
-        "date": "2022-10-21T00:00:00.000Z",
-        "description": "",
-        "attendees": [
-            "489b15d0-4255-11ed-bdde-13d8ed291536",
-            "b47fc640-38a7-11ed-b986-dda0c0b5a583"
-        ],
-        "__v": 0
-    }
-]
+{
+    "acknowledged": true,
+    "modifiedCount": 1,
+    "upsertedId": null,
+    "upsertedCount": 0,
+    "matchedCount": 1
+}
 ```
 
 
-The response object will be same as previous APIs.
+| Field       | Type   | Description                                      |
+| ------------|--------|--------------------------------------------------|
+| acknowledged| boolean | If the update was successful or not             |
+| modifiedCount| number | number of documents that were modified    |
+| upsertedId  | number | number of upsert documents    |
+| matchedCount| number | number of documents that matches the query    |
+
+
+
+Another possible API response will be 
+
+```
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+{
+    "acknowledged": false
+}
+```
+
+| Field       | Type   | Description                                      |
+| ------------|--------|--------------------------------------------------|
+| acknowledged| boolean | If the update was successful or not             |
 
 
 ### 3.8. how many clients signed up for each event for the last 2 months
