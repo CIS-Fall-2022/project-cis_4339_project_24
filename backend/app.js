@@ -14,7 +14,7 @@ app.use(cors({
   origin: '*'
 }));
 
-// to send data by bdoy
+// to send data by body --- Jahidul
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

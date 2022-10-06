@@ -418,6 +418,42 @@ Possible errors:
 | -----------------------|-------------------------------------------------------|
 | 304 request not changed| The search parameters has not changed.				 |
 
+### 2.5. delete a specific user
+
+ API that deletes all the information of spefic user from the database
+
+```
+DELETE http://localhost:3000/primaryData/:id
+```
+
+With the following parameters:
+
+| Parameter     | Type     | Required?  | Description                       								|
+| ------------- |----------|------------|-------------------------------------------------------------------|
+| `id`          | string   | required   | _id of the user            								|
+  
+Example requests:
+```
+DELETE	http://localhost:3000/primaryData/aac29550-44e2-11ed-bdbb-d5c3aaabf849
+```
+
+Example response:
+```
+{
+    "acknowledged": true,
+    "deletedCount": 1
+}
+```
+the object has following information
+
+| Field       | Type   | Description                                      |
+| ------------|--------|--------------------------------------------------|
+| acknowledged| boolean | If the update was acknowledged or not             |
+| deletedCount| number | Number of documents delete from mongodb    |
+
+when the event is not deleted the deletedCount will be 0
+
+
 
 ## 3. eventData
 
@@ -970,3 +1006,93 @@ Where the object is:
 | ------------|--------|--------------------------------------------------|
 | _id         | string | A unique identifier for the event.                |
 | attendee   | string | number of clients that signed up for the event    |
+
+
+### 3.9. delete a specific event
+
+API is used to delete a specifc event from the mongodb database based on the id of the event.
+
+```
+DELETE http://localhost:3000/eventData/:id
+```
+
+With the following parameters:
+
+| Parameter   | Type   | Required | Description                                      |
+| ------------|--------|--------- |--------------------------------------------------|
+| id          | string | required |The id of the event                		      |
+
+Example request:
+
+```
+DELETE /eventData/efcb60d0-4255-11ed-9e6a-cdaa95919513"
+Content-Type: application/json
+```
+
+Example response:
+
+```
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+
+{
+    "acknowledged": true,
+    "deletedCount": 1
+}
+```
+the object has following information
+
+| Field       | Type   | Description                                      |
+| ------------|--------|--------------------------------------------------|
+| acknowledged| boolean | If the update was acknowledged or not             |
+| deletedCount| number | Number of documents delete from mongodb    |
+
+when the event is not deleted the deletedCount will be 0
+
+
+### 3.10. delete a specific attendee from an event
+
+API is used to remove a users id from list of attendees in the event details
+
+```
+DELETE http://localhost:3000/eventData/delAttendee/:id
+```
+
+With the following parameters:
+
+| Parameter   | Type   | Required | Description                                      |
+| ------------|--------|--------- |--------------------------------------------------|
+| id          | string | required |The id of the user                		      |
+
+Example request:
+
+```
+DELETE /eventData/delAttendee/efcb60d0-4255-11ed-9e6a-cdaa95919513"
+Content-Type: application/json
+
+{
+	attendee:"efcb60d0-4255-11ed-9e6a-cdaa95919513"
+}
+```
+
+Example response:
+
+```
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+
+[
+    {
+        "_id": "a33a6330-45a0-11ed-ba96-a38e56f42b78",
+        "attendee": "efcb60d0-4255-11ed-9e6a-cdaa95919513"
+    }
+]
+```
+the object has following information
+
+| Field       | Type   | Description                                      |
+| ------------|--------|--------------------------------------------------|
+| _id         | string | the id of the event              |
+| attendee	  | string | the id of the user   |
+
+
