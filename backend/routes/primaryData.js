@@ -7,7 +7,7 @@ let { eventdata } = require("../models/models");
 
 //GET all entries
 router.get("/", (req, res, next) => { 
-    primarydata.find( 
+    primarydata.find( {organization:process.env.ORGANIZATION},
         (error, data) => {
             if (error) {
                 return next(error);
@@ -21,7 +21,8 @@ router.get("/", (req, res, next) => {
 //GET single entry by ID
 router.get("/id/:id", (req, res, next) => {
     primarydata.find( 
-        { _id: req.params.id }, 
+        { _id: req.params.id, 
+            organization:process.env.ORGANIZATION}, 
         (error, data) => {
             if (error) {
                 return next(error);
@@ -37,9 +38,12 @@ router.get("/id/:id", (req, res, next) => {
 router.get("/search/", (req, res, next) => { 
     let dbQuery = "";
     if (req.query["searchBy"] === 'name') {
-        dbQuery = { firstName: { $regex: `^${req.query["firstName"]}`, $options: "i" }, lastName: { $regex: `^${req.query["lastName"]}`, $options: "i" } }
+        dbQuery = { organization:process.env.ORGANIZATION, 
+            firstName: { $regex: `^${req.query["firstName"]}`, $options: "i" }, 
+            lastName: { $regex: `^${req.query["lastName"]}`, $options: "i" } }
     } else if (req.query["searchBy"] === 'number') {
         dbQuery = {
+            organization:process.env.ORGANIZATION, 
             "phoneNumbers.primaryPhone": { $regex: `^${req.query["phoneNumbers.primaryPhone"]}`, $options: "i" }
         }
     };
@@ -62,8 +66,10 @@ router.get("/events/:id", (req, res, next) => {
 
 //POST
 router.post("/", (req, res, next) => { 
+    var data = req.body
+    data['organization'] = process.env.ORGANIZATION
     primarydata.create( 
-        req.body,
+        data,
         (error, data) => { 
             if (error) {
                 return next(error);
@@ -79,9 +85,11 @@ router.post("/", (req, res, next) => {
 
 //PUT update (make sure req body doesn't have the id)
 router.put("/:id", (req, res, next) => { 
+    var data = req.body
+    data['organization'] = process.env.ORGANIZATION
     primarydata.findOneAndUpdate( 
         { _id: req.params.id }, 
-        req.body,
+        data,
         (error, data) => {
             if (error) {
                 return next(error);
@@ -102,6 +110,9 @@ router.delete("/:id", (req, res, next) => {
             } else {
                 // Need to remove client id from events
                 eventdata.updateMany({}, {$pull: {attendees: req.params.id}}).exec()
+                // learned $unset from: https://stackoverflow.com/questions/31384269/how-to-remove-property-of-nested-object-from-mongodb-document
+                // reread instructions changing to pull
+                // unset removes whole array (oops): https://stackoverflow.com/questions/7115978/remove-vs-pull-vs-unset-in-mongodb
                 res.json(data);
             }
         }
