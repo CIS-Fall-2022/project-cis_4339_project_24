@@ -40,6 +40,10 @@ let primaryDataSchema = new Schema({
         zip: {
             type: String,
         }
+    },
+    organization:{
+        type: String,
+        require: true
     }
 }, {
     collection: 'primaryData',
@@ -49,6 +53,10 @@ let primaryDataSchema = new Schema({
 //collection for eventData
 let eventDataSchema = new Schema({
     _id: { type: String, default: uuid.v1 },
+    organization:{
+        type: String,
+        require: true
+    },
     eventName: {
         type: String,
         require: true
