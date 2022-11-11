@@ -65,6 +65,11 @@ export default {
         this.client.address.city = data.address.city;
         this.client.address.county = data.address.county;
         this.client.address.zip = data.address.zip;
+      })
+      // updated by jislam2
+      .catch((error) => {
+        console.log(error)
+        alert(error);
       });
     axios
       .get(
@@ -100,9 +105,11 @@ export default {
       axios.put(apiURL, this.client).then(() => {
         alert("Update has been saved.");
         this.$router.back().catch((error) => {
-          console.log(error);
+          console.log(error)
+          // updated by jislam2
+          alert(error);
         });
-      });
+      })
     },
     addToEvent() {
       this.eventsChosen.forEach((event) => {
@@ -122,7 +129,17 @@ export default {
                   eventName: data[i].eventName,
                 });
               }
+            })
+            // updated by jislam2
+            .catch((error) => {
+              console.log(error)
+              alert(error);
             });
+        })
+        // updated by jislam2
+        .catch((error) => {
+          console.log(error)
+          alert(error);
         });
       });
     },
