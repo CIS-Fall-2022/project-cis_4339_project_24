@@ -25,7 +25,7 @@
           datasets: [
             {
               label: "Attendees",
-              backgroundColor: "rgba(144,238,144 , 0.9 )",
+              backgroundColor: "rgba(244,6,0,1 )", //Change color of bar chart to cougar red
               data: this.chartData,
             },
           ],
