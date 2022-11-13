@@ -7,12 +7,14 @@
         </section>
         <nav class="mt-10">
           <ul class="flex flex-col gap-4">
-            <li>
-              <router-link to="/">
-                <span style="position: relative; top: 6px" class="material-icons">dashboard</span>
-                Dashboard
-              </router-link>
-            </li>
+                <li class="nav-item">
+                  <router-link to="/chart"> <!--OscarLopez-->
+                      <span style="position: relative; top: 8px" class="material-icons"
+                      >people</span>
+                      Event Chart
+                  </router-link
+                  >
+                </li>
             <li>
               <router-link to="/intakeform">
                 <span style="position: relative; top: 6px" class="material-icons">people</span>
@@ -70,3 +72,4 @@ export default {
   padding: 18px;
 }
 </style>
+
