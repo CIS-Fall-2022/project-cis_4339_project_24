@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import ChartView from '@/views/ChartView.vue'
 
 const routes = [
     {
         path: '/',
         name: 'dashboard',
         props: true,
-        component: () => import('../components/dashboard.vue')
+        component: () => import('../components/BarChartComponent.vue') //Change to show bar chart-Oscar Lopez
     },
     {
         path: '/intakeform',
@@ -39,6 +40,11 @@ const routes = [
         name: 'eventdetails',
         props: true,
         component: () => import('../components/eventDetails.vue')
+    },
+    {
+      path: '/chart',
+      name: 'chart',
+      component: ChartView
     }
 ]
 const router = createRouter({
