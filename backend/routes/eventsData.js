@@ -179,7 +179,7 @@ router.get("/report", (req, res, next) => {
     eventdata.aggregate([
         {$match:{organization:process.env.ORGANIZATION,
             date:{$gte:d}}},
-        {$project:{_id:1, attendee:{$size:"$attendees"}}}
+        {$project:{_id:1, eventName:1, attendee:{$size:"$attendees"}}} //Added eventName so that chart shows properly 
     ] ,
         (error, data) => {
             if (error) {
