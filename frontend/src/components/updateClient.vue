@@ -112,7 +112,15 @@ export default {
       })
     },
     addToEvent() {
-      this.eventsChosen.forEach((event) => {
+      // updated by jislam2
+      // checking if the user has already registered or not
+      this.eventsChosen.forEach((event) => { 
+        this.clientEvents.forEach((clientEvent) => {
+          if(clientEvent.eventName === event.eventName){ // user is already registered 
+            alert("User has already signed up for this event.") 
+            return;
+          }
+        });
         let apiURL =
           import.meta.env.VITE_ROOT_API + `/eventdata/addAttendee/` + event._id;
         axios.put(apiURL, { attendee: this.$route.params.id }).then(() => {
@@ -127,6 +135,7 @@ export default {
               for (let i = 0; i < data.length; i++) {
                 this.clientEvents.push({
                   eventName: data[i].eventName,
+                  eventDate: data[i].date // updated by jislam2
                 });
               }
             })
@@ -141,6 +150,7 @@ export default {
           console.log(error)
           alert(error);
         });
+        
       });
     },
   },
