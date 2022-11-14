@@ -113,6 +113,9 @@ export default {
     },
     addToEvent() {
       // updated by jislam2
+      // checking if any event is selected or not
+      if(this.eventsChosen.length===0)
+        alert("No event selected")
       // checking if the user has already registered or not
       this.eventsChosen.forEach((event) => { 
         this.clientEvents.forEach((clientEvent) => {
