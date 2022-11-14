@@ -2,6 +2,7 @@
 import useVuelidate from "@vuelidate/core";
 import { required, email, alpha, numeric } from "@vuelidate/validators";
 import axios from "axios";
+import { useToast } from "vue-toastification"
 export default {
   setup() {
     return { v$: useVuelidate({ $autoDirty: true }) };
@@ -42,7 +43,8 @@ export default {
         axios
           .post(apiURL, this.client)
           .then(() => {
-            alert("Client has been succesfully added.");
+            const toast = useToast()
+            toast("Client has been succesfully added.", { type: "success", position: "bottom-right" })
             this.$router.push("/findclient");
             this.client = {
               firstName: "",
@@ -65,7 +67,8 @@ export default {
             };
           })
           .catch((error) => {
-            console.log(error);
+            const toast = useToast()
+            toast(error, { type: "error", position: "bottom-right" })
           });
       }
     },
