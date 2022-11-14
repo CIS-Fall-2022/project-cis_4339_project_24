@@ -68,7 +68,7 @@ export default {
           })
           .catch((error) => {
             const toast = useToast()
-            toast(error, { type: "error", position: "bottom-right" })
+            toast("Server error", { type: "error", position: "bottom-right" })
           });
       }
     },

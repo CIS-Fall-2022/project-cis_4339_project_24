@@ -97,7 +97,7 @@
 </template>
 <script>
 import axios from "axios";
-
+import { useToast } from "vue-toastification"
 export default {
   data() {
     return {
@@ -113,6 +113,10 @@ export default {
     let apiURL = import.meta.env.VITE_ROOT_API + `/primarydata/`;
     axios.get(apiURL).then((resp) => {
       this.queryData = resp.data;
+    })
+    .catch((error) => {
+      const toast = useToast()
+      toast("Server error", { type: "error", position: "bottom-right" })
     });
     window.scrollTo(0, 0);
   },

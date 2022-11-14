@@ -201,6 +201,7 @@
 import useVuelidate from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 import axios from "axios";
+import { useToast } from "vue-toastification"
 export default {
   setup() {
     return { v$: useVuelidate({ $autoDirty: true }) };
@@ -234,7 +235,8 @@ export default {
         axios
           .post(apiURL, this.event)
           .then(() => {
-            alert("Event has been added.");
+            const toast = useToast()
+            toast("Event has been added.", { type: "success", position: "bottom-right" })
             this.$router.push("/findEvents");
             this.client = {
               eventName: "",
@@ -252,7 +254,8 @@ export default {
             this.checkedServices = [];
           })
           .catch((error) => {
-            console.log(error);
+            const toast = useToast()
+            toast("Server error", { type: "error", position: "bottom-right" })
           });
       }
     },

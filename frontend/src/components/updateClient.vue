@@ -4,7 +4,7 @@ import { required, email, alpha, numeric } from "@vuelidate/validators";
 import VueMultiselect from "vue-multiselect";
 import axios from "axios";
 import { DateTime } from "luxon";
-
+import { useToast } from "vue-toastification"
 export default {
   props: ["id"],
   components: { VueMultiselect },
@@ -68,8 +68,8 @@ export default {
       })
       // updated by jislam2
       .catch((error) => {
-        console.log(error)
-        alert(error);
+        const toast = useToast()
+        toast("Server error", { type: "error", position: "bottom-right" })
       });
     axios
       .get(
@@ -103,24 +103,29 @@ export default {
     handleClientUpdate() {
       let apiURL = import.meta.env.VITE_ROOT_API + `/primarydata/${this.id}`;
       axios.put(apiURL, this.client).then(() => {
-        alert("Update has been saved.");
+        const toast = useToast()
+        toast("Update has been saved.", { type: "success", position: "bottom-right" })
         this.$router.back().catch((error) => {
           console.log(error)
           // updated by jislam2
-          alert(error);
+          const toast = useToast()
+          toast("Server error", { type: "error", position: "bottom-right" })
         });
       })
     },
     addToEvent() {
       // updated by jislam2
       // checking if any event is selected or not
-      if(this.eventsChosen.length===0)
-        alert("No event selected")
+      if(this.eventsChosen.length===0){
+        const toast = useToast()
+        toast("No event selected", { type: "error", position: "bottom-right" })
+      }
       // checking if the user has already registered or not
       this.eventsChosen.forEach((event) => { 
         this.clientEvents.forEach((clientEvent) => {
           if(clientEvent.eventName === event.eventName){ // user is already registered 
-            alert("User has already signed up for this event.") 
+            const toast = useToast()
+            toast("User has already signed up for the event.", { type: "error", position: "bottom-right" })
             return;
           }
         });
@@ -144,14 +149,14 @@ export default {
             })
             // updated by jislam2
             .catch((error) => {
-              console.log(error)
-              alert(error);
+              const toast = useToast()
+              toast("Server error", { type: "error", position: "bottom-right" })
             });
         })
         // updated by jislam2
         .catch((error) => {
-          console.log(error)
-          alert(error);
+          const toast = useToast()
+          toast("Server error", { type: "error", position: "bottom-right" })
         });
         
       });
