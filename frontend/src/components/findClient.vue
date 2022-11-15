@@ -92,7 +92,7 @@
               <!-- Jacob Hui -->
               <!-- adding another column for delete button -->
               <!-- copied style from other buttons -->
-              <td @click="deleteClient(client._id)"><button type="submit" class="bg-red-700 text-white rounded">Delete Client</button></td>
+              <td><button @click="deleteClient(client._id)" type="submit" class="bg-red-700 text-white rounded">Delete Client</button></td>
               <!-- getting error, but it works? -->
               <!-- TypeError: Cannot read properties of undefined (reading 'firstName') -->
             </tr>
@@ -155,8 +155,8 @@ export default {
     editClient(clientID) {
       this.$router.push({ name: "updateclient", params: { id: clientID } });
     },
-    deleteClient(clientid) { // Jacob Hui
-      let apiURL = import.meta.env.VITE_ROOT_API + `/primarydata/` + clientid;
+    deleteClient(clientId) { // Jacob Hui
+      let apiURL = import.meta.env.VITE_ROOT_API + `/primarydata/` + clientId;
       axios.delete(apiURL).then(() => {
         // reopen client page 
         // found redirect at https://stackoverflow.com/questions/49601795/making-redirects-after-an-axios-post-request-with-express 

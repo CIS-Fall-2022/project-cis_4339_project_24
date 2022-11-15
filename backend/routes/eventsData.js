@@ -156,14 +156,13 @@ router.delete("/:id", (req, res, next) => {
 
 //DELETE clinet from event Jacob Hui
 router.delete("/delAttendee/:id", (req, res, next) => {
-    eventdata.find( 
+    eventdata.updateOne( // updated
         { _id: req.params.id },
-        req.body,
+        {$pull: { attendees: req.body.attendee }},
         (error, data) => { 
             if (error) {
                 return next(error);
             } else {
-                eventdata.updateOne({ _id: req.params.id }, {$pull: { attendees: req.body.attendee }}).exec()
                 res.json(data);
             }
         }

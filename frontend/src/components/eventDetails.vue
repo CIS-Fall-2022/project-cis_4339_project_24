@@ -220,6 +220,7 @@
                   <th class="p-4 text-left">Name</th>
                   <th class="p-4 text-left">City</th>
                   <th class="p-4 text-left">Phone Number</th>
+                  <th><!-- just to look nice --></th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-300">
@@ -233,6 +234,10 @@
                   >{{ client.attendeeFirstName + " " + client.attendeeLastName }}</td>
                   <td class="p-2 text-left">{{ client.attendeeCity }}</td>
                   <td class="p-2 text-left">{{ client.attendeePhoneNumber }}</td>
+                  <!-- Jacob Hui -->
+                  <!-- adding another column for delete button -->
+                  <!-- copied style from other buttons -->
+                  <td><button @click="deleteAttendee(client.attendee)" type="submit" class="bg-red-700 text-white rounded">Delete Attendee</button></td>
                 </tr>
               </tbody>
             </table>
@@ -322,6 +327,15 @@ export default {
     },
     editClient(clientID) {
       this.$router.push({ name: "updateclient", params: { id: clientID } });
+    },
+    deleteAttendee(clientId) { // Jacob Hui
+      let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/delAttendee/` + this.$route.params.id;
+      axios.delete(apiURL, { attendee: clientId }).then(() => {
+        // reopen events page 
+        // found redirect at https://stackoverflow.com/questions/49601795/making-redirects-after-an-axios-post-request-with-express 
+        window.location = "/findEvents";
+        alert("Attendee Deleted.");
+      });
     },
   },
   // sets validations for the various data properties

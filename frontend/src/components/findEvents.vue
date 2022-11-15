@@ -69,6 +69,7 @@
               <th class="p-4 text-left">Event Name</th>
               <th class="p-4 text-left">Event Date</th>
               <th class="p-4 text-left">Event Address</th>
+              <th><!-- just to look nice --></th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-300">
@@ -76,6 +77,10 @@
               <td class="p-2 text-left">{{ event.eventName }}</td>
               <td class="p-2 text-left">{{ formattedDate(event.date) }}</td>
               <td class="p-2 text-left">{{ event.address.line1 }}</td>
+              <!-- Jacob Hui -->
+              <!-- adding another column for delete button -->
+              <!-- copied style from other buttons -->
+              <td><button @click="deleteEvent(event._id)" type="submit" class="bg-red-700 text-white rounded">Delete Event</button></td>
             </tr>
           </tbody>
         </table>
@@ -139,6 +144,15 @@ export default {
     },
     editEvent(eventID) {
       this.$router.push({ name: "eventdetails", params: { id: eventID } });
+    },
+    deleteEvent(eventId) { // Jacob Hui
+      let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/` + eventId;
+      axios.delete(apiURL).then(() => {
+        // reopen events page 
+        // found redirect at https://stackoverflow.com/questions/49601795/making-redirects-after-an-axios-post-request-with-express 
+        window.location = "/findEvents";
+        alert("Event Deleted.");
+      });
     },
   },
 };
