@@ -130,11 +130,27 @@ export default {
   methods: {
     handleSubmitForm() {
       let apiURL = "";
+      console.log(this.serachBy)
+      if(!this.searchBy){
+        const toast = useToast()
+        toast("No search option selected", { type: "warning", position: "bottom-right" })
+        return;
+      }
       if (this.searchBy === "Client Name") {
+        if(!this.firstName && !this.lastName){
+          const toast = useToast()
+          toast("No firstName or lastName entered.", { type: "warning", position: "bottom-right" })
+          return;
+        }
         apiURL =
           import.meta.env.VITE_ROOT_API +
           `/primarydata/search/?firstName=${this.firstName}&lastName=${this.lastName}&searchBy=name`;
       } else if (this.searchBy === "Client Number") {
+        if(!this.phoneNumber){
+          const toast = useToast()
+          toast("No phoneNumber entered.", { type: "warning", position: "bottom-right" })
+          return;
+        }
         apiURL =
           import.meta.env.VITE_ROOT_API +
           `/primarydata/search/?phoneNumbers.primaryPhone=${this.phoneNumber}&searchBy=number`;
