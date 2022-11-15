@@ -120,11 +120,26 @@ export default {
     },
     handleSubmitForm() {
       let apiURL = "";
+      if(!this.searchBy){
+        const toast = useToast()
+        toast("No search option selected", { type: "warning", position: "bottom-right" })
+        return;
+      }
       if (this.searchBy === "Event Name") {
+        if(!this.eventName){
+          const toast = useToast()
+          toast("No eventName entered.", { type: "warning", position: "bottom-right" })
+          return;
+        }
         apiURL =
           import.meta.env.VITE_ROOT_API +
           `/eventdata/search/?eventName=${this.eventName}&searchBy=name`;
       } else if (this.searchBy === "Event Date") {
+        if(!this.eventDate){
+          const toast = useToast()
+          toast("No eventDate entered.", { type: "warning", position: "bottom-right" })
+          return;
+        }
         apiURL =
           import.meta.env.VITE_ROOT_API +
           `/eventdata/search/?eventDate=${this.eventDate}&searchBy=date`;
