@@ -91,7 +91,7 @@
 <script>
 import { DateTime } from "luxon";
 import axios from "axios";
-
+import { useToast } from "vue-toastification"
 export default {
   data() {
     return {
@@ -107,6 +107,10 @@ export default {
     this.queryData = [];
     axios.get(apiURL).then((resp) => {
       this.queryData = resp.data;
+    })
+    .catch((error) => {
+      const toast = useToast()
+      toast("Server error", { type: "error", position: "bottom-right" })
     });
     window.scrollTo(0, 0);
   },

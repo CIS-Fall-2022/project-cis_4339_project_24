@@ -95,9 +95,23 @@ let eventDataSchema = new Schema({
     collection: 'eventData'
 });
 
+
+
+//collection for organizationData --- jislam2
+let organizationDataSchema = new Schema({
+    _id: { type: String, default: uuid.v1 },
+    name:{
+        type: String,
+        require: true
+    }
+}, {
+    collection: 'organizationData'
+});
+
 // create models from mongoose schemas
 const primarydata = mongoose.model('primaryData', primaryDataSchema);
 const eventdata = mongoose.model('eventData', eventDataSchema);
+const organizationData = mongoose.model('organizationData', organizationDataSchema);
 
 // package the models in an object to export 
-module.exports = { primarydata, eventdata }
+module.exports = { primarydata, eventdata, organizationData }

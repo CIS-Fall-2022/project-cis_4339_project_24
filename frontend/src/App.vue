@@ -50,7 +50,7 @@
           background: linear-gradient(250deg, #C8102E 70%, #efecec 50.6%);
         "
       >
-        <h1 class="mr-20 text-3xl text-white">Dataplatform</h1>
+        <h1 class="mr-20 text-3xl text-white">{{ name }}</h1> <!--jislam2-->
       </section>
       <div>
         <router-view></router-view>
@@ -60,10 +60,32 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
-  name: "App",
+  name:"App",
+  data() {
+    return {
+      name :""
+    };
+  },
+  beforeMount() {
+    axios
+      .get(
+        import.meta.env.VITE_ROOT_API + `/organizationData/`
+      )
+      .then((data) => {
+        console.log(data.data[0].name)
+        this.name = data.data[0].name
+      });
+  },
+  methods: {
+    routePush(routeName) {
+      this.$router.push({ name: routeName });
+    },
+  },
 };
 </script>
+
 
 <style>
 #_container {
