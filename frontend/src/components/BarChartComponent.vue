@@ -48,4 +48,4 @@
 
   </script>
 
-<!--Code was provided by Professor. Linder durning class-->
+<!--Code was provided by Professor. Lindner durning class-->
