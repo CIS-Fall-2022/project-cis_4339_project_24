@@ -73,10 +73,10 @@
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-300">
-            <tr @click="editEvent(event._id)" v-for="event in queryData" :key="event._id">
-              <td class="p-2 text-left">{{ event.eventName }}</td>
-              <td class="p-2 text-left">{{ formattedDate(event.date) }}</td>
-              <td class="p-2 text-left">{{ event.address.line1 }}</td>
+            <tr  v-for="event in queryData" :key="event._id">
+              <td @click="editEvent(event._id)" class="p-2 text-left">{{ event.eventName }}</td>
+              <td @click="editEvent(event._id)" class="p-2 text-left">{{ formattedDate(event.date) }}</td>
+              <td @click="editEvent(event._id)" class="p-2 text-left">{{ event.address.line1 }}</td>
               <!-- Jacob Hui -->
               <!-- adding another column for delete button -->
               <!-- copied style from other buttons -->
@@ -167,10 +167,15 @@ export default {
     deleteEvent(eventId) { // Jacob Hui
       let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/` + eventId;
       axios.delete(apiURL).then(() => {
-        // reopen events page 
-        // found redirect at https://stackoverflow.com/questions/49601795/making-redirects-after-an-axios-post-request-with-express 
-        window.location = "/findEvents";
-        alert("Event Deleted.");
+        // updated by jislam2
+          const toast = useToast()
+          toast("Client deleted sucessfully.", { type: "success", position: "bottom-right" })
+        // refreshing the data List
+          for( var i = 0; i < this.queryData.length; i++){ 
+            if ( this.queryData[i]._id === eventId) {
+              this.queryData.splice(i, 1); 
+            }
+          }
       });
     },
   },

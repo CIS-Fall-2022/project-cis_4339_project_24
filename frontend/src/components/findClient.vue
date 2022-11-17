@@ -177,13 +177,9 @@ export default {
     deleteClient(clientId) { // Jacob Hui
       let apiURL = import.meta.env.VITE_ROOT_API + `/primarydata/` + clientId;
       axios.delete(apiURL).then(() => {
-        // reopen client page 
-        // found redirect at https://stackoverflow.com/questions/49601795/making-redirects-after-an-axios-post-request-with-express 
-        
         // updated by jislam2
         const toast = useToast()
         toast("Client deleted sucessfully.", { type: "success", position: "bottom-right" })
-        console.log(this.queryData)
         // refreshing the data List
         for( var i = 0; i < this.queryData.length; i++){ 
         if ( this.queryData[i]._id === clientId) {
