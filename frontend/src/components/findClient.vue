@@ -85,16 +85,15 @@
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-300">
-            <tr @click="editClient(client._id)" v-for="client in queryData" :key="client._id">
-              <td class="p-2 text-left">{{ client.firstName + " " + client.lastName }}</td>
-              <td class="p-2 text-left">{{ client.phoneNumbers[0].primaryPhone }}</td>
-              <td class="p-2 text-left">{{ client.address.city }}</td>
+            <tr v-for="client in queryData" :key="client._id">
+              <!-- jislam2 Removing error -->
+              <td @click="editClient(client._id)" class="p-2 text-left">{{ client.firstName + " " + client.lastName }}</td>
+              <td @click="editClient(client._id)" class="p-2 text-left">{{ client.phoneNumbers[0].primaryPhone }}</td>
+              <td @click="editClient(client._id)" class="p-2 text-left">{{ client.address.city }}</td>
               <!-- Jacob Hui -->
               <!-- adding another column for delete button -->
               <!-- copied style from other buttons -->
-              <td><button @click="deleteClient(client._id)" type="submit" class="bg-red-700 text-white rounded">Delete Client</button></td>
-              <!-- getting error, but it works? -->
-              <!-- TypeError: Cannot read properties of undefined (reading 'firstName') -->
+              <td><button @click="deleteClient(client._id)" class="bg-red-700 text-white rounded">Delete Client</button></td>
             </tr>
           </tbody>
         </table>
@@ -180,10 +179,18 @@ export default {
       axios.delete(apiURL).then(() => {
         // reopen client page 
         // found redirect at https://stackoverflow.com/questions/49601795/making-redirects-after-an-axios-post-request-with-express 
-        window.location = "/findclient";
-        alert("Client Deleted.");
-        // getting error, but it works?
-        // TypeError: Cannot read properties of undefined (reading 'firstName')
+        
+        // updated by jislam2
+        const toast = useToast()
+        toast("Client deleted sucessfully.", { type: "success", position: "bottom-right" })
+        console.log(this.queryData)
+        // refreshing the data List
+        for( var i = 0; i < this.queryData.length; i++){ 
+        if ( this.queryData[i]._id === clientId) {
+            this.queryData.splice(i, 1); 
+        }
+    
+    }
       });
     },
   },
