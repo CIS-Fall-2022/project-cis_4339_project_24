@@ -1,3 +1,19 @@
+# Project setup
+```
+npm install
+```
+
+# Before startup 
+Setup a .env file with following variables, e.g.:
+
+```
+VITE_ROOT_API=http://localhost:3000MONGO_URL = "mongodb+srv://jislam:12345@cluster0.pc7gewy.mongodb.net/test"
+ORGANIZATION = "631d4b2af6eb186df032a119"
+```
+# Compiles and hot-reloads for development
+```
+node app.js
+```
 # Dataplatform’s API documentation
 
 This repository contains the documentation for Dataplatform Web application API.
