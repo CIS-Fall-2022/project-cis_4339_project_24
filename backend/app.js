@@ -57,3 +57,8 @@ app.use(function (err, req, res, next) {
     err.statusCode = 500;
   res.status(err.statusCode).send(err.message);
 });
+
+//displaying message that backend works 
+app.get("/", (req, res) => { 
+  res.status(200).send("Welcome to backend of project-cis-4339-project-24"); 
+});

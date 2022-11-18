@@ -5,15 +5,12 @@ const router = express.Router();
 let { eventdata } = require("../models/models"); 
 
 //GET all entries
-router.get("/", (req, res, next) => { 
-    console.log("here")
+router.get("/", (req, res, next) => {
     eventdata.find( {organization:process.env.ORGANIZATION},
         (error, data) => {
             if (error) {
-                console.log(error)
                 return next(error);
             } else {
-                console.log(data)
                 res.json(data);
             }
         }

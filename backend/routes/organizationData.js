@@ -11,7 +11,6 @@ router.get("/", (req, res, next) => {
     organizationData.find( {_id:process.env.ORGANIZATION},
         (error, data) => {
             if (error) {
-                console.log(error)
                 return next(error);
             } else {
                 res.json(data);
