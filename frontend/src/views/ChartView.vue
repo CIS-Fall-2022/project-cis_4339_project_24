@@ -1,71 +1,59 @@
+<!--OScar Lopez-->
+<style>
+table,
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+</style>
+
 <template>
-    <section class="container">
-      <h1>Chart Examples</h1>
-<!--       <div class="columns">
-        <div class="column">
-          <h3>Planet Chart Demo</h3>
-          <PlanetChart />
-        </div> -->
-        <div class="column">
-          <h3>Bar Chart - Receiving Data from backend</h3>
-          <div>
-            <div>
-              <AttendeesBar
-                v-if="!loading && !error"
-                :label="labels"
-                :chart-data="attend"
-              ></AttendeesBar>
-  
-              <!-- Start of loading animation -->
-              <div class="mt-40" v-if="loading">
-                <p
-                  class="
-                    text-6xl
-                    font-bold
-                    text-center text-gray-500
-                    animate-pulse
-                  "
-                >
-                  Loading...
-                </p>
-              </div>
-              <!-- End of loading animation -->
-  
-              <!-- Start of error alert -->
-              <div class="mt-12 bg-red-50" v-if="error">
-                <h3 class="px-4 py-1 text-4xl font-bold text-white bg-red-800">
-                  {{ error.title }}
-                </h3>
-                <p class="p-4 text-lg font-bold text-red-900">
-                  {{ error.message }}
-                </p>
-              </div>
-              <!-- End of error alert -->
-              <br />
-              <br />
-            </div>
-          </div>
-        </div>
-      <!-- </div> -->
-    </section>
-  </template>
+  <main>
+    <div>
+      <h1 class="font-bold text-4xl text-red-700 tracking-widest text-center mt-10">Welcome</h1>
+      <div>
+        <h1 class="font-bold text-4xl text-red-700 tracking-widest text-center mt-10"> Events </h1>
+<!--Bar chart Oscar Lopez-->
+        <AttendeesBar
+              v-if="!loading && !error"
+              :label="labels"
+              :chart-data="attendee"
+              style="margin-left: 75px; margin-right: 75px; margin-bottom: 75px;"
+            ></AttendeesBar>
+      </div>
+<!--Table under the bar chart Oscar Lopez-->
+      <table style="margin-left: auto; margin-right: auto;">
+        <tr>
+          <th> Event Name </th>
+          <th> # to Attend </th>
+        </tr>
+        <tr v-for="event in tableData"><!--Not sure why it has red lines but code runs-->
+          <td> {{event.eventName}} </td><!--Shows the event name on the table-->
+          <td> {{event.attendee}} </td><!--Shows the # of attendees in table-->
+        </tr>
+      </table> 
+    </div>
+  </main>
+</template>
   
   <script>
   import axios from "axios";
-/*   import PlanetChart from "@/components/PlanetChart.vue"; */
-  import AttendeesBar from "@/components/BarChartComponent.vue";
+  import AttendeesBar from "@/components/BarChartComponent.vue";//From SRC Components
   
   export default {
     components: {
-    /*   PlanetChart, */
       AttendeesBar
     },
     data() {
       return {
-        labels: [],
-        attend: [],
+        labels: [],//event arrays 
+        attendee: [],//primary arrays
         loading: false,
         error: null,
+        orgName: [],//Table event name
+        tableData: [],//Table attendee #
       };
     },
     methods: {
@@ -73,14 +61,13 @@
         try {
           this.error = null;
           this.loading = true;
-          const url = `http://localhost:3000/eventData/report`;
+          const url = `http://localhost:3000/eventData/report`; //Get data from backend 
           const response = await axios.get(url);
-          //"re-organizing" - mapping json from the response
-          response.data.forEach((event) => {
-            this.labels.push(event.eventName) //This will show the event 
-            this.attend.push(event.attendee) //this will shoe how many attendees
-          });
-
+        //"re-organizing" - mapping json from the response
+        this.labels = response.data.map((item) => item.eventName);//For the bar chart
+        this.attendee = response.data.map((item) => item.attendee);//For the bar chart
+        this.tableData = response.data; //For the table
+      
         } catch (err) {
           if (err.response) {
             // client received an error response (5xx, 4xx)
@@ -109,4 +96,10 @@
       this.fetchData();
     },
   };
+
+  
   </script>
+
+
+
+<!--Code was provided by Professor. Lindner durning class-->

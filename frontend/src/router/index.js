@@ -6,7 +6,7 @@ const routes = [
         path: '/',
         name: 'dashboard',
         props: true,
-        component: () => import('../components/BarChartComponent.vue') //Change to show bar chart-Oscar Lopez
+        component: () => ChartView //Change to show bar chart-Oscar Lopez
     },
     {
         path: '/intakeform',

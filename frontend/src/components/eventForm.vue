@@ -226,8 +226,18 @@ export default {
   },
   methods: {
     async handleSubmitForm() {
+
       // Checks to see if there are any errors in validation
       const isFormCorrect = await this.v$.$validate();
+      // jislam2
+      // event data should not be before current data
+      var date_entered = new Date(this.event.date)
+      var date_current = new Date()
+      if(date_entered<date_current){
+          const toast = useToast()
+          toast("Can't add an event from past", { type: "error", position: "bottom-right" })
+          return;
+        }
       // If no errors found. isFormCorrect = True then the form is submitted
       if (isFormCorrect) {
         this.event.services = this.checkedServices;
