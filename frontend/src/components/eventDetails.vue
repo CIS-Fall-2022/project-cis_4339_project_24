@@ -237,7 +237,7 @@
                   <!-- Jacob Hui -->
                   <!-- adding another column for delete button -->
                   <!-- copied style from other buttons -->
-                  <td><button @click="deleteAttendee(client.attendee)" type="submit" class="bg-red-700 text-white rounded">Delete Attendee</button></td>
+                  <td><button @click="deleteAttendee(client.attendeeID)" type="submit" class="bg-red-700 text-white rounded">Delete Attendee</button></td>
                 </tr>
               </tbody>
             </table>
@@ -301,6 +301,7 @@ export default {
             )
             .then((resp) => {
               let data = resp.data[0];
+              console.log(this.attendeeIDs[i])
               this.attendeeData.push({
                 attendeeID: this.attendeeIDs[i],
                 attendeeFirstName: data.firstName,
@@ -330,10 +331,12 @@ export default {
     editClient(clientID) {
       this.$router.push({ name: "updateclient", params: { id: clientID } });
     },
-    deleteAttendee(clientId) { // Jacob Hui
+    deleteAttendee(clientID) { // Jacob Hui
       let apiURL = import.meta.env.VITE_ROOT_API + `/eventdata/delAttendee/` + this.$route.params.id;
-      axios.delete(apiURL, { attendee: clientId }).then(() => {
-        // reopen events page 
+      console.log(apiURL)
+      console.log(clientID)
+      axios.put(apiURL, { attendee: clientID }).then(() => { // had to change to put method to give body
+        // reopen events page  
         // found redirect at https://stackoverflow.com/questions/49601795/making-redirects-after-an-axios-post-request-with-express 
         window.location = "/findEvents";
         alert("Attendee Deleted.");

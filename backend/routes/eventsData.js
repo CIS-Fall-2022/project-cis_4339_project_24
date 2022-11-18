@@ -154,8 +154,9 @@ router.delete("/:id", (req, res, next) => {
     );
 });
 
-//DELETE clinet from event Jacob Hui
-router.delete("/delAttendee/:id", (req, res, next) => {
+//PUT clinet from event Jacob Hui
+// changed to put so that you can pass through body
+router.put("/delAttendee/:id", (req, res, next) => {
     eventdata.updateOne( // updated
         { _id: req.params.id },
         {$pull: { attendees: req.body.attendee }},

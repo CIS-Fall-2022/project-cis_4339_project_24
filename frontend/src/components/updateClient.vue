@@ -80,6 +80,7 @@ export default {
         let data = resp.data;
         resp.data.forEach((event) => {
           this.clientEvents.push({
+            eventID: event._id,
             eventName: event.eventName,
             eventDate: event.date,
           });
