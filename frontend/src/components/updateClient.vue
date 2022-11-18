@@ -117,9 +117,11 @@ export default {
     addToEvent() {
       // updated by jislam2
       // checking if any event is selected or not
-      if(this.eventsChosen.length===0){
+      if(this.eventsChosen.length===0){ // no evet selected
+        // display error
         const toast = useToast()
         toast("No event selected", { type: "error", position: "bottom-right" })
+        return; //no need to go further
       }
       // checking if the user has already registered or not
       this.eventsChosen.forEach((event) => { 
@@ -127,7 +129,7 @@ export default {
           if(clientEvent.eventName === event.eventName){ // user is already registered 
             const toast = useToast()
             toast("User has already signed up for the event.", { type: "error", position: "bottom-right" })
-            return;
+            return; // no need to add it
           }
         });
         let apiURL =

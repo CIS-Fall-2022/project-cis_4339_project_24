@@ -129,23 +129,27 @@ export default {
   methods: {
     handleSubmitForm() {
       let apiURL = "";
-      console.log(this.serachBy)
-      if(!this.searchBy){
+      // jislam2
+      if(!this.searchBy){ // if no option is selected 
+        // display error
         const toast = useToast()
         toast("No search option selected", { type: "warning", position: "bottom-right" })
-        return;
+        return; // not submit the form
       }
-      if (this.searchBy === "Client Name") {
-        if(!this.firstName && !this.lastName){
+      if (this.searchBy === "Client Name") { // if selected the client anme
+        if(!this.firstName && !this.lastName){ // not name  enetered 
+          // display the error
           const toast = useToast()
           toast("No firstName or lastName entered.", { type: "warning", position: "bottom-right" })
-          return;
+          return; // form not submitted
         }
         apiURL =
           import.meta.env.VITE_ROOT_API +
           `/primarydata/search/?firstName=${this.firstName}&lastName=${this.lastName}&searchBy=name`;
-      } else if (this.searchBy === "Client Number") {
-        if(!this.phoneNumber){
+      } 
+      else if (this.searchBy === "Client Number") { // search by phone number
+        if(!this.phoneNumber){ // no number entered 
+          // display error
           const toast = useToast()
           toast("No phoneNumber entered.", { type: "warning", position: "bottom-right" })
           return;

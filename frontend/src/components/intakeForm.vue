@@ -67,6 +67,7 @@ export default {
             };
           })
           .catch((error) => {
+            // jislam2
             const toast = useToast()
             toast("Server error", { type: "error", position: "bottom-right" })
           });

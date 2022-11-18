@@ -50,6 +50,7 @@
           background: linear-gradient(250deg, #C8102E 70%, #efecec 50.6%);
         "
       >
+      <!-- jislam2 -->
         <h1 class="mr-20 text-3xl text-white">{{ name }}</h1> <!--jislam2-->
       </section>
       <div>
@@ -69,6 +70,7 @@ export default {
     };
   },
   beforeMount() {
+    // jislam2
     axios
       .get(
         import.meta.env.VITE_ROOT_API + `/organizationData/`
