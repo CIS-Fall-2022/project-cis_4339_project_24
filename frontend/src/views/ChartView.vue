@@ -61,7 +61,7 @@ table,
         try {
           this.error = null;
           this.loading = true;
-          const url = `http://localhost:3000/eventData/report`; //Get data from backend 
+          const url = import.meta.env.VITE_ROOT_API+`/eventData/report`; //Get data from backend 
           const response = await axios.get(url);
         //"re-organizing" - mapping json from the response
         this.labels = response.data.map((item) => item.eventName);//For the bar chart
