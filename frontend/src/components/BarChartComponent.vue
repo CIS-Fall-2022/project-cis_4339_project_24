@@ -1,3 +1,4 @@
+<!--Oscar Lopez-->
 <template>
     <canvas ref="myChart"></canvas> <!--Bar Chart-->
 </template>
@@ -48,4 +49,4 @@
 
   </script>
 
-<!--Code was provided by Professor. Linder durning class-->
+<!--Code was provided by Professor. Lindner durning class-->
